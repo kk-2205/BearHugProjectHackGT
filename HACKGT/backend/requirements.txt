@@ -1,0 +1,10 @@
+flask
+flask_cors
+openai
+whisper
+torch
+numpy
+pyaudio
+gtts
+simpleaudio
+pydub
