@@ -1,0 +1,63 @@
+/* src/components/LiveChat.css */
+
+.live-chat-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+  }
+  
+  .chat-box {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+  
+  .user-message {
+    margin: 10px 0;
+    color: #007bff;
+  }
+  
+  .gpt-response {
+    margin: 10px 0;
+    color: #28a745;
+  }
+  
+  .control-buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .control-buttons button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .control-buttons button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .error {
+    color: red;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .no-data {
+    color: #777;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
