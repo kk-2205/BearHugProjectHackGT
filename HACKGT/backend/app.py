@@ -1,11 +1,16 @@
 import os
 from dotenv import load_dotenv
 import logging
+import numpy as np
 import openai
 import whisper
 import torch
+import pyaudio
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import threading
+import tempfile
+import soundfile as sf
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))
 
@@ -24,28 +29,75 @@ print("OpenAI API Key:", openai.api_key)
 # Load Whisper model
 model = whisper.load_model("base")
 
-@app.route('/api/transcribe', methods=['POST'])
-def transcribe():
+# Create a flag to stop the live recording if needed
+stop_flag = threading.Event()
+
+
+
+def get_live_audio(seconds=10, rate=16000):
+    """Capture live audio from the microphone."""
+    chunk = 2048  # Record in chunks of 2048 samples (increase buffer size)
+    format = pyaudio.paInt16  # 16-bit resolution
+    channels = 1  # Mono channel
+    audio_interface = pyaudio.PyAudio()
+
+    stream = audio_interface.open(format=format, channels=channels,
+                                  rate=rate, input=True,
+                                  frames_per_buffer=chunk)
+
+    logging.info("Recording...")
+    frames = []
+
     try:
-        # Get audio file from the request
-        audio_file = request.files['file']
-        audio_path = os.path.join('temp', audio_file.filename)
-        audio_file.save(audio_path)
+        # Capture the audio frames for the specified duration
+        for _ in range(0, int(rate / chunk * seconds)):
+            try:
+                data = stream.read(chunk, exception_on_overflow=False)
+                frames.append(np.frombuffer(data, dtype=np.int16))
+                if stop_flag.is_set():
+                    break
+            except IOError as e:
+                logging.warning(f"Audio buffer overflowed: {e}")
+                continue
 
-        # Transcribe audio
-        result = model.transcribe(audio_path)
+    finally:
+        logging.info("Recording finished.")
+        stream.stop_stream()
+        stream.close()
+        audio_interface.terminate()
+
+    # Convert audio data to a numpy array and normalize it
+    audio_data = np.hstack(frames)
+    return audio_data.astype(np.float32) / 32768.0  # Normalize to -1 to 1
+
+
+@app.route('/api/live-transcribe', methods=['GET'])
+def live_transcribe():
+    """Transcribe live audio from the microphone and return OpenAI response."""
+    try:
+        # Record live audio for a specified duration (e.g., 10 seconds)
+        logging.info("Starting live audio recording...")
+        audio_data = get_live_audio(seconds=10)
+
+        
+        # Save audio data to a temporary file for Whisper to read
+        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
+        sf.write(temp_file.name, audio_data, 16000)
+
+        # Use Whisper to transcribe the saved temporary file
+        result = model.transcribe(temp_file.name)
         transcription = result['text']
+        logging.info(f"Transcription: {transcription}")
 
-        # Send transcription to OpenAI GPT
+        # Send the transcription to OpenAI GPT for further processing
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # Or another available model
+            model="gpt-3.5-turbo",  # Use "gpt-3.5-turbo" or "gpt-4" if available
             messages=[{"role": "user", "content": transcription}],
             max_tokens=150
         )
-        gpt_response = response['choices'][0]['message']['content'].strip()
 
-        # Clean up temporary audio file
-        os.remove(audio_path)
+        gpt_response = response['choices'][0]['message']['content'].strip()
+        logging.info(f"GPT Response: {gpt_response}")
 
         return jsonify({
             'transcription': transcription,
@@ -53,10 +105,10 @@ def transcribe():
         })
 
     except Exception as e:
-        logging.error(f"Error processing request: {str(e)}")
+        logging.error(f"Error processing live transcription: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
+
 if __name__ == '__main__':
-    if not os.path.exists('temp'):
-        os.makedirs('temp')
     app.run(debug=True)
+
