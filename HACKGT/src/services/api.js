@@ -1,18 +1,18 @@
 // src/services/api.js
 
-export async function sendAudioToBackend(audioBlob) {
-    const formData = new FormData();
-    formData.append('file', audioBlob, 'audio.wav');
-  
-    const response = await fetch('http://localhost:5000/api/transcribe', {
-      method: 'POST',
-      body: formData,
+const API_URL = 'http://127.0.0.1:5000';  // Your Flask backend URL
+
+export const liveTranscribe = async () => {
+  try {
+    const response = await fetch(`${API_URL}/api/live-transcribe`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-  
-    if (!response.ok) {
-      throw new Error(`Server error: ${response.status}`);
-    }
-  
-    return response.json(); // Returns the transcription and GPT response
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error calling live-transcribe API:', error);
   }
-  
+};

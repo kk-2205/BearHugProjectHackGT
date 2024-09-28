@@ -1,47 +1,38 @@
 import React, { useState } from 'react';
-import { sendAudioToBackend } from '../services/api';
+import { liveTranscribe } from '../services/api';
 
-function AudioRecorder({ setTranscription, setGptResponse }) {
-  const [isRecording, setIsRecording] = useState(false);
-  let mediaRecorder;
-  let audioChunks = [];
+const AudioRecorder = () => {
+  const [transcription, setTranscription] = useState('');
+  const [response, setResponse] = useState('');
 
-  const startRecording = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.start();
-    setIsRecording(true);
-
-    mediaRecorder.ondataavailable = (event) => {
-      audioChunks.push(event.data);
-    };
-
-    mediaRecorder.onstop = async () => {
-      const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-      audioChunks = [];
-      try {
-        // Send audio to backend API
-        const result = await sendAudioToBackend(audioBlob);
-        setTranscription(result.transcription);
-        setGptResponse(result.response);
-      } catch (error) {
-        console.error('Error in transcription:', error);
-      }
-    };
-  };
-
-  const stopRecording = () => {
-    mediaRecorder.stop();
-    setIsRecording(false);
+  const handleTranscription = async () => {
+    const result = await liveTranscribe();
+    if (result && result.transcription) {
+      setTranscription(result.transcription);
+      setResponse(result.response);
+    }
   };
 
   return (
     <div>
-      <button onClick={isRecording ? stopRecording : startRecording}>
-        {isRecording ? 'Stop Recording' : 'Start Recording'}
-      </button>
+      <h2>Live Audio Transcription</h2>
+      <button onClick={handleTranscription}>Start Live Transcription</button>
+
+      {transcription && (
+        <div>
+          <h3>Transcription:</h3>
+          <p>{transcription}</p>
+        </div>
+      )}
+
+      {response && (
+        <div>
+          <h3>GPT Response:</h3>
+          <p>{response}</p>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default AudioRecorder;
