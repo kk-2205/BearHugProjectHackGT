@@ -1,10 +1,13 @@
 import os
+from dotenv import load_dotenv
+import logging
 import openai
 import whisper
 import torch
-import logging
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -15,6 +18,8 @@ logging.basicConfig(level=logging.INFO)
 
 # Set up OpenAI API key from environment variable
 openai.api_key = os.getenv('OPENAI_API_KEY')
+print("OpenAI API Key:", openai.api_key)
+
 
 # Load Whisper model
 model = whisper.load_model("base")
