@@ -1,0 +1,41 @@
+<!-- templates/chat.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BearHug - Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div style="width: 100%; height: 100%; position: relative; background: #B7D1FA; border: 1px black solid">
+        <div style="width: 100%; height: 100%; position: relative; background: #B7D1FA; border: 1px black solid">
+            <div style="width: 586px; height: 762px; left: 40px; top: 92px; position: absolute"></div>
+            <div style="width: 468px; height: 97px; padding-top: 19px; padding-bottom: 18px; padding-left: 93px; padding-right: 93px; left: 158px; top: 849px; position: absolute; background: #5AA7A7; border-radius: 15px; overflow: hidden; justify-content: center; align-items: center; display: inline-flex">
+                <div style="width: 282px; height: 60px; text-align: center; color: white; font-size: 50px; font-family: Inter; font-weight: 700; word-wrap: break-word">Start Chat</div>
+            </div>
+            <div style="width: 468px; height: 97px; padding-top: 19px; padding-bottom: 18px; padding-left: 93px; padding-right: 93px; left: 814px; top: 854px; position: absolute; background: #5AA7A7; border-radius: 15px; overflow: hidden; justify-content: center; align-items: center; display: inline-flex">
+                <div style="width: 282px; height: 60px; text-align: center; color: white; font-size: 50px; font-family: Inter; font-weight: 700; word-wrap: break-word">End Chat</div>
+            </div>
+            <div style="width: 731px; height: 577px; left: 682px; top: 223px; position: absolute; background: #D9D9D9"></div>
+            <img style="width: 491px; height: 521px; left: 590px; top: 249px; position: absolute; transform: rotate(180deg); transform-origin: 0 0" src="./static/images/bearhuglight.png" />
+            <div style="width: 391px; height: 220px; left: 750px; top: 407px; position: absolute; text-align: center; color: black; font-size: 50px; font-family: Inter; font-weight: 400; word-wrap: break-word">chat</div>
+            <div style="width: 1440px; height: 123px; left: 0px; top: 0px; position: absolute; background: #99B4DF">
+                <div style="width: 178px; height: 53px; left: 1248px; top: 27px; position: absolute; background: #99B4DF; border: 1px black solid; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
+                    <div style="color: #E2EDFF; font-size: 30px; font-family: Quicksand; font-weight: 700; text-decoration: underline; word-wrap: break-word">Enter Chat</div>
+                </div>
+                <img style="width: 98px; height: 102px; left: 31px; top: 8px; position: absolute" src="https://via.placeholder.com/98x102" />
+                <img style="width: 463px; height: 114px; left: 488px; top: 4px; position: absolute" src="https://via.placeholder.com/463x114" />
+            </div>
+        </div>
+        <div style="position: absolute; top: 849px; left: 158px;" onclick="startTranscription()">
+            <div style="background: #5AA7A7; color: white; font-size: 50px; font-family: Inter; font-weight: 700; border-radius: 15px; width: 468px; height: 97px; text-align: center; line-height: 97px;">Start Chat</div>
+        </div>
+        <div style="position: absolute; top: 854px; left: 814px;" onclick="stopTranscription()">
+            <div style="background: #5AA7A7; color: white; font-size: 50px; font-family: Inter; font-weight: 700; border-radius: 15px; width: 468px; height: 97px; text-align: center; line-height: 97px;">End Chat</div>
+        </div>
+        <!-- Other elements go here -->
+    </div>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
