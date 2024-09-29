@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Bot</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #conversation { height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+        #conversation p { margin: 5px 0; }
+        .user { color: blue; }
+        .bot { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Chat with the Bot</h1>
+    <div id="conversation"></div>
+    <button onclick="startTranscription()">Start</button>
+    <button onclick="stopTranscription()">Stop</button>
+
+    <script>
+        let intervalId;
+
+        function startTranscription() {
+            fetch('/api/start', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    // Poll for updates every 3 seconds
+                    intervalId = setInterval(fetchUpdates, 3000);
+                });
+        }
+
+        function stopTranscription() {
+            fetch('/api/stop', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    clearInterval(intervalId);
+                });
+        }
+
+        function fetchUpdates() {
+            fetch('/api/updates')
+                .then(response => response.json())
+                .then(data => {
+                    const conversation = document.getElementById('conversation');
+                    conversation.innerHTML = '';
+                    data.transcriptions.forEach((msg, i) => {
+                        conversation.innerHTML += `<p class="user">You: ${msg}</p>`;
+                        conversation.innerHTML += `<p class="bot">Bot: ${data.responses[i]}</p>`;
+                    });
+                    conversation.scrollTop = conversation.scrollHeight;
+                });
+        }
+    </script>
+</body>
+</html>

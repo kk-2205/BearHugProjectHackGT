@@ -1,6 +1,7 @@
 import os
-from dotenv import load_dotenv
 import logging
+import threading
+import tempfile
 import numpy as np
 import openai
 import whisper
@@ -8,9 +9,8 @@ import torch
 import pyaudio
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import threading
-import tempfile
 import soundfile as sf
+from dotenv import load_dotenv
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))
 

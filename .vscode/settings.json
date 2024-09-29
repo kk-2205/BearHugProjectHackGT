@@ -1,0 +1,7 @@
+{
+    "python.analysis.extraPaths": [
+        "/Users/karishma/Desktop/HACKGT/HACKGT-PRJ1/HACKGT/server"
+      ],
+      "python.pythonPath": "/Users/karishma/Desktop/HACKGT/HACKGT-PRJ1/HACKGT/server/.venv/bin/python"
+  }
+  

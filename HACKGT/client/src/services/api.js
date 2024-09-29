@@ -1,10 +1,9 @@
 // src/services/api.js
-
-const API_URL = 'http://127.0.0.1:5000';  // Your Flask backend URL
+const API_URL = '/api';  // Now proxying to Flask backend
 
 export const liveTranscribe = async () => {
   try {
-    const response = await fetch(`${API_URL}/api/live-transcribe`, {
+    const response = await fetch(`${API_URL}/get-updates`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -13,6 +12,6 @@ export const liveTranscribe = async () => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error calling live-transcribe API:', error);
+    console.error('Error calling get-updates API:', error);
   }
 };
