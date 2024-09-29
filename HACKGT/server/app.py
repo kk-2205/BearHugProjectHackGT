@@ -93,9 +93,17 @@ def speak_text(text):
 
 running = False  # NEW: Added a running flag to control the overall state
 
+
+# Route for the home page
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html')  # Display home page with "Enter Chat" button
+
+# Route for the chat page
+@app.route('/chat')
+def chat():
+    return render_template('chat.html')  # Display chat interface page
+
 
 @app.route('/api/start', methods=['POST'])
 def start_transcription():

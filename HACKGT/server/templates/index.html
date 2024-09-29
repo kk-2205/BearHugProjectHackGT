@@ -1,58 +1,69 @@
+<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatGPT Bot</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        #conversation { height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
-        #conversation p { margin: 5px 0; }
-        .user { color: blue; }
-        .bot { color: green; }
-    </style>
+    <title>BearHug - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body>
-    <h1>Chat with the Bot</h1>
-    <div id="conversation"></div>
-    <button onclick="startTranscription()">Start</button>
-    <button onclick="stopTranscription()">Stop</button>
-
-    <script>
-        let intervalId;
-
-        function startTranscription() {
-            fetch('/api/start', { method: 'POST' })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    // Poll for updates every 3 seconds
-                    intervalId = setInterval(fetchUpdates, 3000);
-                });
-        }
-
-        function stopTranscription() {
-            fetch('/api/stop', { method: 'POST' })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    clearInterval(intervalId);
-                });
-        }
-
-        function fetchUpdates() {
-            fetch('/api/updates')
-                .then(response => response.json())
-                .then(data => {
-                    const conversation = document.getElementById('conversation');
-                    conversation.innerHTML = '';
-                    data.transcriptions.forEach((msg, i) => {
-                        conversation.innerHTML += `<p class="user">You: ${msg}</p>`;
-                        conversation.innerHTML += `<p class="bot">Bot: ${data.responses[i]}</p>`;
-                    });
-                    conversation.scrollTop = conversation.scrollHeight;
-                });
-        }
-    </script>
+<body style="background: #B7D1FA ">
+    <div style="width: 100%; height: 100%; position: relative; background: #B7D1FA; border: 1px black solid">
+        <div style="width: 100%; height: 100%; position: relative; background: #B7D1FA; border: 1px black solid">
+            <div style="width: 1440px; height: 123px; left: 0px; top: 0px; position: absolute; background: #99B4DF">
+                <div style="width: 178px; height: 53px; left: 1248px; top: 27px; position: absolute; background: #99B4DF; border: 1px black solid; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
+                    <div style="color: #E2EDFF; font-size: 30px; font-family: Quicksand; font-weight: 700; text-decoration: underline; word-wrap: break-word">Enter Chat</div>
+                </div>
+                <img style="width: 98px; height: 102px; left: 31px; top: 8px; position: absolute" src="./static/images/desktopBeardark.png" />
+                <img style="width: 463px; height: 114px; left: 488px; top: 4px; position: absolute" src="./static/images/BearHugtitle.png" />
+            </div>
+            <div style="width: 482px; height: 500px; left: 479px; top: 92px; position: absolute; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)"></div>
+            <div style="width: 1440px; height: 571px; left: 0px; top: 667px; position: absolute; background: linear-gradient(180deg, #B6D0FA 0%, #BEDFDB 100%)">
+                <div style="width: 371px; height: 73px; left: 534px; top: 44px; position: absolute; color: #585858; font-size: 60px; font-family: Inria Serif; font-weight: 700; word-wrap: break-word">How it works<br/></div>
+                <div style="width: 1281px; height: 415px; left: 74px; top: 149px; position: absolute; text-align: center; color: #585858; font-size: 38px; font-family: Quicksand; font-weight: 600; word-wrap: break-word">Meet BearHug, your friendly digital companion! <br/><br/>Whether you’re feeling stressed, down, or just need someone to talk to, BearHug is here 24/7 to listen and support you—judgment-free.<br/> <br/>Chat anytime for advice, calming tips, or just a comforting conversation. Let’s get through this together!</div>
+            </div>
+            <div style="width: 1440px; height: 774px; left: 0px; top: 1238px; position: absolute; background: #BEDFDB">
+                <div style="left: 413px; top: 19px; position: absolute; color: #585858; font-size: 60px; font-family: Inria Serif; font-weight: 700; word-wrap: break-word">BearHug vs. In-person</div>
+                <div style="width: 623px; height: 68px; left: 115px; top: 321px; position: absolute; color: #585858; font-size: 35px; font-family: Quicksand; font-weight: 700; word-wrap: break-word">Talk to someone from anywhere</div>
+                <div style="width: 623px; height: 69px; left: 115px; top: 252px; position: absolute; color: #585858; font-size: 35px; font-family: Quicksand; font-weight: 700; word-wrap: break-word">Discuss your feelings</div>
+                <div style="width: 623px; height: 70px; left: 115px; top: 389px; position: absolute; color: #585858; font-size: 35px; font-family: Quicksand; font-weight: 700; word-wrap: break-word">Talk to someone at anytime</div>
+                <div style="width: 623px; height: 68px; left: 115px; top: 459px; position: absolute; color: #585858; font-size: 35px; font-family: Quicksand; font-weight: 700; word-wrap: break-word">Receive a response instantaneously</div>
+                <div style="width: 623px; height: 69px; left: 115px; top: 527px; position: absolute; color: #585858; font-size: 35px; font-family: Quicksand; font-weight: 700; word-wrap: break-word">No fees or lost time</div>
+                <div style="width: 623px; height: 68px; left: 115px; top: 596px; position: absolute; color: #585858; font-size: 35px; font-family: Quicksand; font-weight: 700; word-wrap: break-word">Anonymity </div>
+                <img style="width: 54px; height: 61px; left: 1172px; top: 305px; position: absolute" src="./static/images/cross.png" />
+                <img style="width: 54px; height: 62px; left: 1172px; top: 374px; position: absolute" src="./static/images/cross.png" />
+                <img style="width: 54px; height: 63px; left: 1172px; top: 446px; position: absolute" src="./static/images/cross.png" />
+                <img style="width: 54px; height: 62px; left: 1172px; top: 516px; position: absolute" src="./static/images/cross.png" />
+                <img style="width: 54px; height: 63px; left: 1172px; top: 586px; position: absolute" src="./static/images/cross.png" />
+                <div style="width: 192px; height: 52px; left: 1130px; top: 159px; position: absolute; color: #585858; font-size: 30px; font-family: Inria Serif; font-weight: 700; word-wrap: break-word">In-Person</div>
+                <img style="width: 57px; height: 68px; left: 1172px; top: 228px; position: absolute" src="./static/images/tick.png" />
+                <div style="width: 276px; height: 568px; left: 761px; top: 149px; position: absolute; background: #66AFA5">
+                    <div style="width: 124px; height: 52px; left: 76px; top: 10px; position: absolute; color: #585858; font-size: 30px; font-family: Inria Serif; font-weight: 700; word-wrap: break-word">BearHug</div>
+                    <img style="width: 57px; height: 63px; left: 109px; top: 83px; position: absolute" src="./static/images/tick.png" />
+                    <img style="width: 57px; height: 63px; left: 109px; top: 155px; position: absolute" src="./static/images/tick.png" />
+                    <img style="width: 57px; height: 63px; left: 109px; top: 226px; position: absolute" src="./static/images/tick.png" />
+                    <img style="width: 57px; height: 63px; left: 109px; top: 298px; position: absolute" src="./static/images/tick.png" />
+                    <img style="width: 57px; height: 63px; left: 109px; top: 369px; position: absolute" src="./static/images/tick.png" />
+                    <img style="width: 57px; height: 63px; left: 109px; top: 441px; position: absolute" src="./static/images/tick.png" />
+                </div>
+            </div>
+            <div style="width: 623px; height: 469px; left: 438px; top: 142px; position: absolute"></div>
+            <img style="width: 426px; height: 447px; left: 502px; top: 142px; position: absolute" src="./static/images/desktopBearlight.png" />
+            <div style="padding-top: 10px; padding-bottom: 11px; padding-left: 36px; padding-right: 36px; left: 562px; top: 589px; position: absolute; background: #FFAD39; border-radius: 50px; overflow: hidden; justify-content: center; align-items: center; display: inline-flex">
+                <div style="color: white; font-size: 35px; font-family: Quicksand; font-weight: 700; text-decoration: underline; word-wrap: break-word">Chat with me!</div>
+            </div>
+            <div style="padding-top: 19px; padding-left: 19px; padding-right: 42px; left: -5px; top: 2011px; position: absolute; background: #5AA7A7; justify-content: flex-start; align-items: center; display: inline-flex">
+                <div style="width: 1384px; height: 88px; text-align: center; color: white; font-size: 23px; font-family: Quicksand; font-weight: 700; word-wrap: break-word">Disclaimer: BearHug is not a licensed therapist and is here only as a supportive friend for conversation and guidance.</div>
+            </div>
+            <div style="width: 1124px; height: 0px; left: 147px; top: 1233px; position: absolute; border: 4px #9885A6 solid"></div>
+            <div style="width: 1124px; height: 0px; left: 147px; top: 680.02px; position: absolute; border: 4px #9885A6 solid"></div>
+        </div>
+        <div style="position: absolute; top: 27px; left: 1248px;">
+            <a href="{{ url_for('chat') }}">
+                <div style="background: #99B4DF; border: 1px black solid; color: #E2EDFF; font-size: 30px; font-family: Quicksand; font-weight: 700; text-decoration: underline; text-align: center; width: 178px; height: 53px; line-height: 53px;">Enter Chat</div>
+            </a>
+        </div>
+        <!-- Other elements go here -->
+    </div>
 </body>
 </html>
