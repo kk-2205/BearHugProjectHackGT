@@ -17,7 +17,19 @@ The main content lies inside the `HACKGT` folder and specifically in the `server
 2. **Navigate to the server folder**:
    ```bash
    cd BearHugProjectHackGT/HACKGT/server
+   
+3. **(Optional) Create and activate a virtual environment**:
 
+   It is recommended to create a virtual environment to manage dependencies:
+   ```bash
+   # Create a virtual environment
+   python -m venv venv
+
+   # Activate the virtual environment (Windows)
+   .\venv\Scripts\activate
+
+   # Activate the virtual environment (macOS/Linux)
+   source venv/bin/activate
    
 3. **Install the required dependencies**:
    ```bash
