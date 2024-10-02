@@ -26,7 +26,7 @@ The main content lies inside the `HACKGT` folder and specifically in the `server
 4. **Run the Flask serve:**:
    ```bash
    flask run
-5. **Access the application:**:
+5. **Access the application**:
    Open your browser and go to http://127.0.0.1:5000 to see the project in action.
 
 ## Technologies Used
