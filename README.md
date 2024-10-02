@@ -19,14 +19,14 @@ The main content lies inside the `HACKGT` folder and specifically in the `server
    cd BearHugProjectHackGT/HACKGT/server
 
    
-3. **Install the required dependencies:**:
+3. **Install the required dependencies**:
    ```bash
    pip install -r requirements.txt
    
-4. **Run the Flask server:**:
+4. **Run the Flask serve:**:
    ```bash
    flask run
-5. **Access the application::**:
+5. **Access the application:**:
    Open your browser and go to http://127.0.0.1:5000 to see the project in action.
 
 ## Technologies Used
