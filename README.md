@@ -1,30 +1,15 @@
-BearHug Project (HackGT)
-Overview
-The BearHug Project is designed to create a supportive and empathetic interaction system using AI. It listens to conversations, empathizes with the speaker, and generates meaningful responses. The core functionality is built using Flask for the server-side operations, and it leverages advanced NLP techniques for real-time sentiment analysis.
+# BearHug Project (HackGT)
 
-Project Structure
-HACKGT/server: Contains the main codebase and the Flask server configuration.
-How to Run the Project
-Clone the repository:
-bash
-Copy code
-git clone https://github.com/kk-2205/BearHugProjectHackGT.git
-Navigate to the server folder:
-bash
-Copy code
-cd BearHugProjectHackGT/HACKGT/server
-Install required dependencies:
-Copy code
-pip install -r requirements.txt
-Run the Flask server:
-arduino
-Copy code
-flask run
-Access the application in your browser at http://127.0.0.1:5000.
-Technologies Used
-Flask
-Python
-JavaScript
-HTML/CSS
-Contributions
-Feel free to open issues or pull requests to improve the project.
+## Overview
+
+**BearHug Project** is an interactive AI-based system that listens to conversations, empathizes with the speaker, and provides thoughtful responses. The project aims to create a supportive and relatable interaction using advanced natural language processing and sentiment analysis techniques.
+
+## Project Structure
+
+The main content lies inside the `HACKGT` folder and specifically in the `server` folder, which houses the Flask-based backend. This folder contains the core logic for the AI interactions and server configurations.
+
+## How to Run the Project
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/kk-2205/BearHugProjectHackGT.git
